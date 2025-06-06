@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Binary Guessing Game</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
     <h1>Guess the Binary Number!</h1>
     <p id="prompt"></p>
-    <input type="text" id="guess" placeholder="Enter your binary guess">
-    <button onclick="makeGuess()">Guess</button>
+    <input type="text" id="guess" placeholder="Enter your binary guess" />
+    <button>Guess</button>
     <p id="result"></p>
-    <p id="highScore">High Score: 0 bits</p> <!-- High score display -->
-    <p id="timer"></p>
+    <p id="highScore">High Score: 0 bits</p>
+    <p id="guessCount">Guesses: 0</p>
+    <p id="timer">Time: 0.00 s</p>
 
     <script src="script.js"></script>
 </body>
