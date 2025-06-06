@@ -33,7 +33,7 @@ function makeGuess() {
             localStorage.setItem("highScore", highScore);
         }
 
-        newRound();
+        setTimeout(newRound, 2000);  // Wait 2 seconds before starting new round
     } else {
         document.getElementById("result").innerText = "Incorrect. Try again.";
     }
