@@ -1,30 +1,44 @@
-let target = 1;
-let startTime = Date.now();
+let bitSize = 1; // Start with 1 bit
+let numberToGuess;
+let binaryNumberToGuess;
+let highScore = localStorage.getItem("highScore") || 0;
 
-function makeGuess() {
-  const input = document.getElementById("guessInput").value;
-  const result = document.getElementById("result");
-  const timer = document.getElementById("timer");
-
-  if (!input || isNaN(input)) {
-    result.textContent = "Enter a valid number.";
-    return;
-  }
-
-  if (parseInt(input) == target) {
-    let endTime = Date.now();
-    let timeTaken = ((endTime - startTime) / 1000).toFixed(2);
-    result.textContent = `Correct! The number was ${target}.`;
-    timer.textContent = `You took ${timeTaken} seconds.`;
-  } else {
-    target *= 2;
-    result.textContent = "Incorrect. Try again.";
-  }
+function newRound() {
+    numberToGuess = Math.floor(Math.random() * Math.pow(2, bitSize));
+    binaryNumberToGuess = numberToGuess.toString(2).padStart(bitSize, '0');
+    document.getElementById("prompt").innerText = `Guess the ${bitSize}-bit number in binary! (0 to ${Math.pow(2, bitSize) - 1})`;
+    document.getElementById("guess").value = '';
+    document.getElementById("result").innerText = '';
+    document.getElementById("highScore").innerText = `High Score: ${highScore} bits`;
 }
 
-// 👇 Listen for Enter key
-document.getElementById("guessInput").addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    makeGuess();
-  }
+function makeGuess() {
+    const guess = document.getElementById("guess").value;
+
+    if (!/^[01]+$/.test(guess) || guess.length !== bitSize) {
+        document.getElementById("result").innerText = `Invalid input! Please enter a ${bitSize}-bit binary number.`;
+        return;
+    }
+
+    if (guess === binaryNumberToGuess) {
+        document.getElementById("result").innerText = "🎉 Correct!";
+        bitSize *= 2;
+
+        if (bitSize > highScore) {
+            highScore = bitSize;
+            localStorage.setItem("highScore", highScore);
+        }
+
+        newRound();
+    } else {
+        document.getElementById("result").innerText = "Incorrect. Try again.";
+    }
+}
+
+document.getElementById("guess").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        makeGuess();
+    }
 });
+
+newRound();
