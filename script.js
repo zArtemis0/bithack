@@ -21,3 +21,10 @@ function makeGuess() {
     result.textContent = "Incorrect. Try again.";
   }
 }
+
+// 👇 Listen for Enter key
+document.getElementById("guessInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    makeGuess();
+  }
+});
